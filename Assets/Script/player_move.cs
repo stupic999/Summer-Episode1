@@ -4,24 +4,22 @@ using UnityEngine;
 
 public class player_move : MonoBehaviour {
 
+    private Rigidbody rb;
+    public float spd=100;
+
+    void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+
     // Update is called once per frame
-    void FixedUpdate () {
-        // 移動
-        if (Input.GetKey("s"))
-        {
-            GameObject.Find("Player").transform.position += new Vector3(0, 0, -0.5f);
-        }
-        if (Input.GetKey("a"))
-        {
-            GameObject.Find("Player").transform.position += new Vector3(-0.5f, 0, 0);
-        }
-        if (Input.GetKey("w"))
-        {
-            GameObject.Find("Player").transform.position += new Vector3(0, 0, 0.5f);
-        }
-        if (Input.GetKey("d"))
-        {
-            GameObject.Find("Player").transform.position += new Vector3(0.5f, 0,0);
-        }
+    void FixedUpdate() {
+        // 按鈕
+        float HorizontalMovement = Input.GetAxis("Horizontal");
+        float VerticalMovement = Input.GetAxis("Vertical");
+
+        Vector3 movement = new Vector3(HorizontalMovement, 0f, VerticalMovement);
+
+        rb.AddForce(movement*spd);
     }
 }
